@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mylen's Manukan</title>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- Bootstrap CSS (4.5.2) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS Files -->
+  <link rel="stylesheet" href="css_files/s.css">
+  <link rel="stylesheet" href="css_files/practic.css">
+  <link rel="stylesheet" href="css_files/Global.css">
+</head>
+
+<body>
+  <div class="parent">
+    <!-- Sidebar Section -->
+    <div class="div1">
+      <div class="wrapper">
+        <div class="sidebar">
+          <div class="profile">
+            <img src="css_files/images/Logo.svg" alt="Logo" />
+            <h3>Mylen's Manukan</h3>
+            <p>Shop</p>
+          </div>
+
+          <ul>
+            <li><a href="main_page.html"><i class="fas fa-home icon"></i><span class="item">Home</span></a></li>
+            <li><a href="alternative.html" ><i class="fas fa-desktop icon"></i><span class="item">Orders</span></a></li>
+            <li><a href="#"><i class="fas fa-user-friends icon"></i><span class="item">Staff</span></a></li>
+            <li><a href="Inventory.html"><i class="fas fa-database icon"></i><span class="item">Inventory</span></a></li>
+            <li><a href="alternative_order receive.html"><i class="fas fa-chart-line icon"></i><span class="item">Receive Delivery</span></a></li>
+            <li><a href="alternativedash.html" class="active"><i class="fas fa-user-shield icon"></i><span class="item">Chicken status</span></a></li>
+            <li><a href=""><i class="fas fa-user-shield icon"></i><span class="item">Chicken status</span></a></li>
+          </ul>
+
+          <div class="logout-container">
+            <button class="logout-btn"><span>Log Out</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Table Section -->
+    <div class="div4">
+      <style>
+      .divbody {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+      }
+  
+      header {
+        color: white;
+        text-align: center;
+        padding: 20px 0;
+        font-size: 2rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      /* Summary Cards */
+      .summary {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        gap: 20px;
+        padding: 20px 0;
+        margin: 0;
+      }
+  
+      .summary-card {
+        background: #fff;
+        width: 220px;
+        text-align: center;
+        padding: 1rem;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+      }
+  
+      .summary-card:hover {
+        transform: translateY(-5px);
+      }
+  
+      .summary-card h3 {
+        margin: 0;
+        color: #4CAF50;
+      }
+  
+      .summary-card p {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+  
+      /* Filter Section */
+      .filter-section {
+        display: flex;
+        justify-content: center;
+        padding: 20px;
+        background: #fff;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      .filter-section select,
+      .filter-section input {
+        margin: 0 10px;
+        padding: 8px;
+        font-size: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+  
+      /* Pens Section */
+      .pens {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        padding: 20px;
+      }
+  
+      .pen-card {
+        background: #fff;
+        width: 280px;
+        padding: 1rem;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        cursor: pointer;
+      }
+  
+      .pen-card:hover {
+        transform: translateY(-5px);
+      }
+  
+      .pen-card h3 {
+        margin-top: 0;
+        color: #4CAF50;
+      }
+  
+      .ready {
+        color: #28a745;
+        font-weight: bold;
+      }
+  
+      .not-ready {
+        color: #dc3545;
+        font-weight: bold;
+      }
+  
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+      }
+  
+      .modal-content {
+        background: #fff;
+        width: 90%;
+        max-width: 500px;
+        padding: 2rem;
+        border-radius: 10px;
+      }
+  
+      .modal-content h2 {
+        margin-top: 0;
+        color: #4CAF50;
+      }
+  
+      .modal-content p {
+        font-size: 1rem;
+        color: #555;
+      }
+  
+      .modal-content button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+  
+      .modal-content button:hover {
+        background-color: #45a049;
+      }
+  
+      /* Responsive Design */
+      @media (max-width: 600px) {
+        .summary {
+          flex-direction: column;
+          align-items: center;
+        }
+  
+        .summary-card,
+        .pen-card {
+          width: 100%;
+          max-width: 320px;
+        }
+  
+        .pens {
+          flex-direction: column;
+          align-items: center;
+        }
+      }
+    </style>
+        <div class="divbody">
+          <header>
+            <h1>Chicken Status Dashboard</h1>
+          </header>
+        
+          <div class="summary">
+            <div class="summary-card">
+              <h3>Total Broiler Chickens</h3>
+              <p>800</p>
+            </div>
+            <div class="summary-card">
+              <h3>Total Native Chickens</h3>
+              <p>750</p>
+            </div>
+            <div class="summary-card">
+              <h3>Total Mortality</h3>
+              <p>50</p>
+            </div>
+            <div class="summary-card">
+              <h3>Ready for Harvest Pens</h3>
+              <p>5</p>
+            </div>
+          </div>
+        
+          <div class="filter-section">
+            <label for="sort">Sort pens by: </label>
+            <select id="sort">
+              <option value="age">Age</option>
+              <option value="adjusted">Adjusted Harvest Date</option>
+              <option value="health">Health Status</option>
+            </select>
+            <label>
+              <input type="checkbox" id="filterReady" /> Ready for Harvest Only
+            </label>
+          </div>
+        
+          <div class="pens" id="pens">
+            <!-- Broiler Pens -->
+            <div class="pen-card broiler ready" data-pen-type="broiler" data-ready="true" data-age="28" data-harvest-date="2025-05-10" data-adjusted-harvest="2025-05-12" data-health="stable">
+              <h3>Broiler Pen 1</h3>
+              <p>Age: 28 days</p>
+              <p>Harvest Date: May 10, 2025</p>
+              <p>Adjusted Harvest Date: May 12, 2025</p>
+              <p>Status: <span class="ready">Ready for Harvest</span></p>
+            </div>
+            <div class="pen-card broiler not-ready" data-pen-type="broiler" data-ready="false" data-age="30" data-harvest-date="2025-05-15" data-adjusted-harvest="2025-05-17" data-health="poor">
+              <h3>Broiler Pen 2</h3>
+              <p>Age: 30 days</p>
+              <p>Harvest Date: May 15, 2025</p>
+              <p>Adjusted Harvest Date: May 17, 2025</p>
+              <p>Status: <span class="not-ready">Not Ready</span></p>
+            </div>
+            <div class="pen-card broiler ready" data-pen-type="broiler" data-ready="true" data-age="26" data-harvest-date="2025-05-08" data-adjusted-harvest="2025-05-09" data-health="good">
+              <h3>Broiler Pen 3</h3>
+              <p>Age: 26 days</p>
+              <p>Harvest Date: May 8, 2025</p>
+              <p>Adjusted Harvest Date: May 9, 2025</p>
+              <p>Status: <span class="ready">Ready for Harvest</span></p>
+            </div>
+            <div class="pen-card broiler not-ready" data-pen-type="broiler" data-ready="false" data-age="32" data-harvest-date="2025-05-20" data-adjusted-harvest="2025-05-22" data-health="stable">
+              <h3>Broiler Pen 4</h3>
+              <p>Age: 32 days</p>
+              <p>Harvest Date: May 20, 2025</p>
+              <p>Adjusted Harvest Date: May 22, 2025</p>
+              <p>Status: <span class="not-ready">Not Ready</span></p>
+            </div>
+        
+            <!-- Native Chicken Pens -->
+            <div class="pen-card native ready" data-pen-type="native" data-ready="true" data-age="150" data-harvest-date="2025-08-15" data-adjusted-harvest="2025-08-20" data-health="stable">
+              <h3>Native Pen 1</h3>
+              <p>Age: 150 days</p>
+              <p>Harvest Date: August 15, 2025</p>
+              <p>Adjusted Harvest Date: August 20, 2025</p>
+              <p>Status: <span class="ready">Ready for Harvest</span></p>
+            </div>
+            <div class="pen-card native not-ready" data-pen-type="native" data-ready="false" data-age="160" data-harvest-date="2025-08-18" data-adjusted-harvest="2025-08-22" data-health="poor">
+              <h3>Native Pen 2</h3>
+              <p>Age: 160 days</p>
+              <p>Harvest Date: August 18, 2025</p>
+              <p>Adjusted Harvest Date: August 22, 2025</p>
+              <p>Status: <span class="not-ready">Not Ready</span></p>
+            </div>
+            <div class="pen-card native ready" data-pen-type="native" data-ready="true" data-age="140" data-harvest-date="2025-08-10" data-adjusted-harvest="2025-08-12" data-health="good">
+              <h3>Native Pen 3</h3>
+              <p>Age: 140 days</p>
+              <p>Harvest Date: August 10, 2025</p>
+              <p>Adjusted Harvest Date: August 12, 2025</p>
+              <p>Status: <span class="ready">Ready for Harvest</span></p>
+            </div>
+            <div class="pen-card native not-ready" data-pen-type="native" data-ready="false" data-age="155" data-harvest-date="2025-08-14" data-adjusted-harvest="2025-08-16" data-health="stable">
+              <h3>Native Pen 4</h3>
+              <p>Age: 155 days</p>
+              <p>Harvest Date: August 14, 2025</p>
+              <p>Adjusted Harvest Date: August 16, 2025</p>
+              <p>Status: <span class="not-ready">Not Ready</span></p>
+            </div>
+          </div>
+        
+          <div class="modal" id="penModal">
+            <div class="modal-content">
+              <h2>Pen Details</h2>
+              <p id="penDetails"></p>
+              <button onclick="closeModal()">Close</button>
+            </div>
+          </div>
+        
+          <script>
+            // Sorting function
+            function sortPens() {
+              const pensContainer = document.getElementById("pens");
+              const pens = Array.from(pensContainer.getElementsByClassName("pen-card"));
+              const sortBy = document.getElementById("sort").value;
+              const filterReady = document.getElementById("filterReady").checked;
+        
+              pens.sort((a, b) => {
+                const valueA = a.dataset[sortBy];
+                const valueB = b.dataset[sortBy];
+        
+                if (sortBy === "age") {
+                  return parseInt(valueA) - parseInt(valueB);
+                } else if (sortBy === "adjusted") {
+                  return new Date(valueA) - new Date(valueB);
+                } else {
+                  return valueA.localeCompare(valueB);
+                }
+              });
+        
+              if (filterReady) {
+                pens.forEach(pen => {
+                  pen.style.display = pen.dataset.ready === "true" ? "block" : "none";
+                });
+              } else {
+                pens.forEach(pen => {
+                  pen.style.display = "block";
+                });
+              }
+        
+              pens.forEach(pen => pensContainer.appendChild(pen));
+            }
+        
+            document.getElementById("sort").addEventListener("change", sortPens);
+            document.getElementById("filterReady").addEventListener("change", sortPens);
+        
+            // Modal functionality
+            function showPenDetails(event) {
+              const penCard = event.currentTarget;
+              const penDetails = `
+                Pen Type: ${penCard.dataset.penType} <br>
+                Age: ${penCard.dataset.age} days <br>
+                Harvest Date: ${penCard.dataset.harvestDate} <br>
+                Adjusted Harvest Date: ${penCard.dataset.adjustedHarvest} <br>
+                Health Status: ${penCard.dataset.health} <br>
+          
+              `;
+              document.getElementById("penDetails").innerHTML = penDetails;
+              document.getElementById("penModal").style.display = "flex";
+            }
+        
+            function closeModal() {
+              document.getElementById("penModal").style.display = "none";
+            }
+        
+            // Add event listeners to pen cards
+            document.querySelectorAll('.pen-card').forEach(pen => {
+              pen.addEventListener('click', showPenDetails);
+            });
+        
+            // Initial sorting call
+            sortPens();
+          </script>
+      </div>
+    </div>
+
+</body>
+</html>
