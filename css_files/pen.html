@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chicken Card Tracker</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #343a40;
+      margin-bottom: 2rem;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
+    }
+
+    .form-section, .cards-section, .saved-cards {
+      flex: 1 1 400px;
+      padding: 1.5rem;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .form-section button, .card button {
+      display: block;
+      margin: 1rem auto;
+      padding: 0.7rem 2rem;
+      font-size: 1rem;
+      color: #ffffff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .form-section button:hover, .card button:hover {
+      background-color: #0056b3;
+    }
+
+    .card, .saved-card {
+      border: 1px solid #dee2e6;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      background-color: #f8f9fa;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin: 0.5rem 0 0.2rem;
+      color: #495057;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      padding: 0.6rem;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-size: 1rem;
+      background-color: #ffffff;
+      margin-bottom: 0.8rem;
+    }
+
+    .saved-card h4 {
+      margin-bottom: 0.5rem;
+      color: #343a40;
+    }
+
+    .saved-card button {
+      background-color: #28a745;
+      margin-top: 1rem;
+    }
+
+    .saved-card button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h1>Chicken Card Tracker</h1>
+  <div class="container">
+    <div class="form-section">
+      <button onclick="addCard()">Add Card</button>
+      <div id="cardContainer"></div>
+    </div>
+
+    <div class="saved-cards">
+      <h2>Saved Cards</h2>
+      <div id="savedCards"></div>
+    </div>
+  </div>
+
+  <script>
+    let cardCounter = 1;
+    const cards = [];
+
+    function addCard() {
+      const container = document.getElementById('cardContainer');
+      const card = document.createElement('div');
+      card.classList.add('card');
+      card.innerHTML = `
+        <h4>Card #${cardCounter}</h4>
+        <label>Chicken Population:</label>
+        <input type="number" class="population" required>
+
+        <label>Batch Number:</label>
+        <input type="text" class="batch" required>
+
+        <label>Harvest Date:</label>
+        <input type="date" class="harvest-date" required>
+
+        <label>Pen Status:</label>
+        <input type="text" class="status" placeholder="Status (e.g. healthy, sick)">
+
+        <label>Medication Logs:</label>
+        <textarea class="medications" placeholder="Details of medications..."></textarea>
+
+        <label>Harvest Adjustment (digits > 0):</label>
+        <input type="number" class="adjustment" min="1" placeholder="Enter adjustment if any">
+
+        <button onclick="saveCard(this)">Save Card</button>
+      `;
+      container.appendChild(card);
+      cardCounter++;
+    }
+
+    function saveCard(button) {
+      const card = button.parentElement;
+      const population = card.querySelector('.population').value;
+      const batch = card.querySelector('.batch').value;
+      const date = card.querySelector('.harvest-date').value;
+      const medications = card.querySelector('.medications').value;
+      const adjustment = card.querySelector('.adjustment').value;
+      const status = card.querySelector('.status').value;
+
+      if (!population || !batch || !date) {
+        alert('Please fill in population, batch number, and harvest date.');
+        return;
+      }
+
+      if (adjustment && parseInt(adjustment) <= 0) {
+        alert('Harvest adjustment must be greater than 0.');
+        return;
+      }
+
+      const existing = cards.find(c => c.batch === batch);
+      let finalDate = date;
+
+      if (adjustment && !existing) {
+        const newDate = new Date(date);
+        newDate.setDate(newDate.getDate() + parseInt(adjustment));
+        finalDate = newDate.toISOString().split('T')[0];
+      } else if (existing) {
+        finalDate = existing.harvestDate;
+      }
+
+      cards.push({ population, batch, harvestDate: finalDate, medications, status });
+      updateSavedCards();
+      card.remove();
+    }
+
+    function updateSavedCards() {
+      const saved = document.getElementById('savedCards');
+      saved.innerHTML = '';
+
+      cards.forEach((c, index) => {
+        const div = document.createElement('div');
+        div.classList.add('saved-card');
+        div.innerHTML = `
+          <h4>Card #${index + 1}</h4>
+          <p><strong>Population:</strong> <span class="card-population">${c.population}</span></p>
+          <p><strong>Batch:</strong> <span class="card-batch">${c.batch}</span></p>
+          <p><strong>Harvest Date:</strong> <span class="card-harvestDate">${c.harvestDate}</span></p>
+          <label>Pen Status:</label>
+          <input type="text" value="${c.status || ''}" class="status-input" readonly>
+          <label>Medication Logs:</label>
+          <textarea class="medications-input" readonly>${c.medications || ''}</textarea>
+          <label>Harvest Adjustment:</label>
+          <input type="number" min="1" value="" class="adjustment-input" readonly>
+          <button onclick="toggleEditMode(${index})">Update</button>
+        `;
+        saved.appendChild(div);
+      });
+    }
+
+    function toggleEditMode(index) {
+      const card = document.querySelectorAll('.saved-card')[index];
+      const statusInput = card.querySelector('.status-input');
+      const medicationsInput = card.querySelector('.medications-input');
+      const adjustmentInput = card.querySelector('.adjustment-input');
+      const updateButton = card.querySelector('button');
+
+      if (statusInput.readOnly) {
+        statusInput.readOnly = false;
+        medicationsInput.readOnly = false;
+        adjustmentInput.readOnly = false;
+        updateButton.textContent = 'Save';
+      } else {
+        statusInput.readOnly = true;
+        medicationsInput.readOnly = true;
+        adjustmentInput.readOnly = true;
+        updateButton.textContent = 'Update';
+
+        // Save updated data
+        cards[index].status = statusInput.value;
+        cards[index].medications = medicationsInput.value;
+        cards[index].adjustment = adjustmentInput.value;
+
+        updateSavedCards();
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,127 @@
+* {
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.wrapper {
+
+    overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 300px;
+    height: 100vh;
+    padding: 20px 0;
+    background-color: rgba(171, 166, 166, 0.4);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+    margin: 0; /* Remove any margin */
+
+
+}
+/* Profile Section */
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    margin-bottom: 10px;
+}
+
+.profile h3 {
+    color: #ffffff;
+    margin-bottom: 5px;
+}
+
+.profile p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+}
+
+/* Navigation Menu */
+.sidebar ul {
+    flex-grow: 1;
+}
+
+.sidebar ul li a {
+    display: block;
+    padding: 13px 30px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.85);
+    transition: 0.3s ease;
+}
+
+.sidebar ul li a .icon {
+    width: 30px;
+    display: inline-block;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.sidebar ul li a:hover,
+.sidebar ul li a.active {
+    background: rgba(255, 255, 255, 0.15);
+    color: #ffffff;
+    border-right: 3px solid #ffffff;
+}
+
+.sidebar ul li a:hover .icon,
+.sidebar ul li a.active .icon {
+    color: #ffffff;
+}
+
+/* Optional: Style for bottom content like logout button */
+.logout-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.logout-container button {
+    padding: 10px 20px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.logout-container button:hover {
+    background-color: #c0392b;
+}
+
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+}
+    
+.div1 {
+    grid-row: span 5 / span 5;
+}
+
+.div4 {
+    grid-column: span 4 / span 4;
+    grid-row: span 5 / span 5;
+}
+        

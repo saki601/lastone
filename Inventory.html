@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mylen's Manukan</title>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- Bootstrap CSS (4.5.2) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS Files -->
+  <link rel="stylesheet" href="css_files/s.css">
+  <link rel="stylesheet" href="css_files/practic.css">
+  <link rel="stylesheet" href="css_files/Card.css">
+  <link rel="stylesheet" href="css_files/Global.css">
+
+</head>
+
+<body>
+  <div class="parent">
+    <!-- Sidebar Section -->
+    <div class="div1">
+      <div class="wrapper">
+        <div class="sidebar">
+          <div class="profile">
+            <img src="css_files/images/Logo.svg" alt="Logo" />
+            <h3>Mylen's Manukan</h3>
+            <p>Shop</p>
+          </div>
+
+          <ul>
+            <li><a href="main_page.html"><i class="fas fa-home icon"></i><span class="item">Home</span></a></li>
+            <li><a href="alternative.html" ><i class="fas fa-desktop icon"></i><span class="item">Orders</span></a></li>
+            <li><a href="#"><i class="fas fa-user-friends icon"></i><span class="item">Staff</span></a></li>
+            <li><a href="Inventory.html" class="active"><i class="fas fa-database icon"></i><span class="item">Inventory</span></a></li>
+            <li><a href="alternative_order receive.html"><i class="fas fa-chart-line icon"></i><span class="item">Receive Delivery</span></a></li>
+            <li><a href="#"><i class="fas fa-user-shield icon"></i><span class="item">Chicken status</span></a></li>
+          </ul>  
+
+          <div class="logout-container">
+            <button class="logout-btn"><span>Log Out</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Table Section -->
+    <div class="div4">
+    <div class="main-wrapper">
+      <div class="display-board">
+        <h3>Latest Updates</h3>
+        <ul id="displayBoardList"></ul>
+      </div>
+  
+      <div class="container">
+        <div class="card" id="populationCard">
+          <h3>Population</h3>
+          <label>Native</label>
+          <input type="text" id="populationNative" placeholder="Enter native count" disabled>
+          <label>Broiler</label>
+          <input type="text" id="populationBroiler" placeholder="Enter broiler count" disabled>
+          <label>Counted By</label>
+          <input type="text" id="populationBy" placeholder="Enter name" disabled>
+          <button onclick="toggleEdit('population')" id="populationBtn">Update</button>
+        </div>
+  
+        <div class="card" id="mortalityCard">
+          <h3>Mortality</h3>
+          <label>Native</label>
+          <input type="text" id="mortalityNative" placeholder="Enter native mortality" disabled>
+          <label>Broiler</label>
+          <input type="text" id="mortalityBroiler" placeholder="Enter broiler mortality" disabled>
+          <label>Counted By</label>
+          <input type="text" id="mortalityBy" placeholder="Enter name" disabled>
+          <button onclick="toggleEdit('mortality')" id="mortalityBtn">Update</button>
+        </div>
+  
+        <div class="card" id="feedsCard">
+          <h3>Feeds</h3>
+          <label>Native</label>
+          <input type="text" id="feedsNative" placeholder="Enter native feed" disabled>
+          <label>Broiler</label>
+          <input type="text" id="feedsBroiler" placeholder="Enter broiler feed" disabled>
+          <label>Counted By</label>
+          <input type="text" id="feedsBy" placeholder="Enter name" disabled>
+          <button onclick="toggleEdit('feeds')" id="feedsBtn">Update</button>
+        </div>
+      </div>
+    </div>
+  
+    <div id="searchContainer">
+      <input type="text" id="searchInput" placeholder="Search by date (e.g. 4/20/2025)" onkeyup="filterTable()">
+      <select id="categoryFilter" onchange="filterTable()">
+        <option value="">All Categories</option>
+        <option value="Population">Population</option>
+        <option value="Mortality">Mortality</option>
+        <option value="Feeds">Feeds</option>
+      </select>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Native</th>
+          <th>Broiler</th>
+          <th>Counted By</th>
+          <th>Date</th>
+        </tr>
+      </thead>
+      <tbody id="dataTable"></tbody>
+    </table>    
+    </div>
+</body>
+<script src="scripts/card.js"></script>
+</html>

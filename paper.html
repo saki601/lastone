@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blur Background Example</title>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    .background {
+      background-image: url(https://www.akamai.com/site/im-demo/perceptual-standard.jpg?imbypass=true); /* Replace with your image */
+      background-size: cover;
+      background-position: center;
+      filter: blur(8px);
+      height: 100%;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+
+    .content {
+      position: relative;
+      z-index: 1;
+      color: rgb(10, 10, 10);
+      text-align: center;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="background"></div>
+
+  <div class="content">
+    <h1>Hello, world!</h1>
+    <p>This text is on top of a blurred background image.</p>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+.flex-container {
+  display: flex;
+  justify-content: space-around; /* Distribute space evenly between items */
+  align-items: center; /* Vertically center items */
+  gap: 10px; /* Space between items */
+  width: 100%; /* Full width of the container */
+}
+
+.flex-container > div {
+  display: flex;
+  justify-content: center; /* Horizontally center items */
+  align-items: center; /* Vertically center items */
+  width: auto; /* Allow the div to take only the required space based on content */
+  flex-shrink: 0; /* Prevent shrinking if there's not enough space */
+  flex-grow: 0; /* Prevent the div from growing beyond its content */
+}

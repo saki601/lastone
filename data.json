@@ -1,0 +1,70 @@
+{
+    "orders": [
+      {
+        "name": "John Doe",
+        "messenger": "https://m.me/johndoe",
+        "address": "123 Main St, Cityville",
+        "order": "Quantity",
+        "orderDetails": "2 items",
+        "status": "Full Paid",
+        "method": "GCash",
+        "reference": "123456789",
+        "paymentDate": "2025-03-10",
+        "phone": "09171234567",
+        "total": "500.00"
+      },
+      {
+        "name": "Jane Smith",
+        "messenger": "https://m.me/janesmith",
+        "address": "456 Oak St, Townsville",
+        "order": "Price",
+        "orderDetails": "Item A - $50, Item B - $100",
+        "status": "Partially Paid",
+        "method": "Cash",
+        "reference": "",
+        "paymentDate": "2025-03-15",
+        "phone": "09179876543",
+        "total": "150.00"
+      },
+      {
+        "name": "Alice Brown",
+        "messenger": "https://m.me/alicebrown",
+        "address": "789 Pine St, Villagetown",
+        "order": "Weight",
+        "orderDetails": "5kg of Product X",
+        "status": "Full Paid",
+        "method": "GCash",
+        "reference": "987654321",
+        "paymentDate": "2025-03-18",
+        "phone": "09173456789",
+        "total": "750.00"
+      },
+      {
+        "name": "Bob White",
+        "messenger": "https://m.me/bobwhite",
+        "address": "101 Maple St, Farmville",
+        "order": "Quantity",
+        "orderDetails": "3 items",
+        "status": "Partially Paid",
+        "method": "Cash",
+        "reference": "",
+        "paymentDate": "2025-03-20",
+        "phone": "09170123456",
+        "total": "300.00"
+      },
+      {
+        "name": "Charlie Green",
+        "messenger": "https://m.me/charliegreen",
+        "address": "202 Cedar St, Greenfield",
+        "order": "Price",
+        "orderDetails": "Item X - $80, Item Y - $120",
+        "status": "Full Paid",
+        "method": "GCash",
+        "reference": "1122334455",
+        "paymentDate": "2025-03-25",
+        "phone": "09178901234",
+        "total": "200.00"
+      }
+    ]
+  }
+  

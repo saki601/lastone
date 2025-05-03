@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Receive Chicken Delivery</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f7f9;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .form-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .form-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      flex: 1 1 280px;
+      min-width: 280px;
+    }
+
+    .form-card label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+
+    .form-card input,
+    .form-card select {
+      width: 100%;
+      padding: 0.6rem;
+      margin-top: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 0.5rem;
+    }
+
+    .submit-btn {
+      margin-top: 1.5rem;
+      padding: 0.8rem 2rem;
+      background-color: #4caf50;
+      color: white;
+      font-size: 1rem;
+      border: none;
+      border-radius: 0.6rem;
+      cursor: pointer;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .submit-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .filter-container {
+      margin-top: 2rem;
+      background: #ffffff;
+      padding: 1rem;
+      border-radius: 1rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .filter-container label {
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+
+    .filter-container input,
+    .filter-container select {
+      padding: 0.5rem;
+      margin: 0.5rem 1rem 0.5rem 0;
+      border-radius: 0.5rem;
+      border: 1px solid #ccc;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      max-height: 300px;
+      overflow-y: auto;
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 0.8rem;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f0f0f0;
+    }
+
+    .collapsible {
+      background-color: #4caf50;
+      color: white;
+      padding: 1rem;
+      width: 100%;
+      border: none;
+      text-align: center;
+      cursor: pointer;
+      font-size: 1.2rem;
+      border-radius: 0.6rem;
+      margin-top: 2rem;
+    }
+
+    .collapsible:hover {
+      background-color: #388e3c;
+    }
+
+    .content {
+      padding: 0.5rem 1rem;
+      display: none;
+      overflow: hidden;
+      background-color: #f4f7f9;
+      margin-top: 1rem;
+      border-radius: 0.6rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Receive Chicken Delivery</h1>
+
+  <div class="form-container">
+    <div class="form-card">
+      <label for="supplier">Supplier Name:</label>
+      <input type="text" id="supplier" required>
+
+      <label for="date">Date Received:</label>
+      <input type="date" id="date" required>
+
+      <label for="contact">Contact Info:</label>
+      <input type="tel" id="contact" required>
+    </div>
+
+    <div class="form-card">
+      <label for="numChickens">Number of Chickens:</label>
+      <input type="number" id="numChickens" min="1" required>
+
+      <label for="chickenAge">Chicken Age (in days):</label>
+      <input type="number" id="chickenAge" min="1" required>
+
+      <label for="weight">Average Weight (grams):</label>
+      <input type="number" step="0.01" id="weight" required>
+    </div>
+
+    <div class="form-card">
+      <label for="employee">Received by:</label>
+      <select id="employee" required>
+        <option value="">-- Select Employee --</option>
+        <option value="Anna Santos">Anna Santos</option>
+        <option value="Mark Reyes">Mark Reyes</option>
+        <option value="Leo Cruz">Leo Cruz</option>
+      </select>
+
+      <label for="status">Batch Status:</label>
+      <select id="status" required>
+        <option value="">-- Select Status --</option>
+        <option value="Healthy">Healthy</option>
+        <option value="Sickly">Sickly</option>
+        <option value="Underweight">Underweight</option>
+      </select>
+
+      <label for="paymentStatus">Payment Status:</label>
+      <select id="paymentStatus" required>
+        <option value="">-- Select Payment Status --</option>
+        <option value="Paid">Paid</option>
+        <option value="Pending">Pending</option>
+      </select>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Receive Delivery</button>
+
+  <!-- Filter section -->
+  <div class="filter-container">
+    <label for="filterSupplier">Filter by Supplier:</label>
+    <input type="text" id="filterSupplier" oninput="filterTable()">
+
+    <label for="filterEmployee">Filter by Employee:</label>
+    <select id="filterEmployee" onchange="filterTable()">
+      <option value="">-- All --</option>
+      <option value="Anna Santos">Anna Santos</option>
+      <option value="Mark Reyes">Mark Reyes</option>
+      <option value="Leo Cruz">Leo Cruz</option>
+    </select>
+
+    <label for="filterDate">Filter by Date:</label>
+    <input type="date" id="filterDate" onchange="filterTable()">
+
+    <label for="filterPaymentStatus">Filter by Payment Status:</label>
+    <select id="filterPaymentStatus" onchange="filterTable()">
+      <option value="">-- All --</option>
+      <option value="Paid">Paid</option>
+      <option value="Pending">Pending</option>
+    </select>
+  </div>
+
+  <!-- Table -->
+  <table id="deliveryTable">
+    <thead>
+      <tr>
+        <th>Supplier</th>
+        <th>Date Received</th>
+        <th>Contact</th>
+        <th>Chickens</th>
+        <th>Age (days)</th>
+        <th>Avg Weight (kg)</th>
+        <th>Received By</th>
+        <th>Status</th>
+        <th>Payment Status</th>
+        <th>System Entry Date</th>
+      </tr>
+    </thead>
+    <tbody id="deliveryBody">
+      <!-- Dummy Data -->
+      <tr>
+        <td>ABC Farms</td>
+        <td>2024-04-15</td>
+        <td>(123) 456-7890</td>
+        <td>200</td>
+        <td>45</td>
+        <td>1.35</td>
+        <td>Anna Santos</td>
+        <td>Healthy</td>
+        <td>Paid</td>
+        <td>2024-04-15</td>
+      </tr>
+      <tr>
+        <td>XYZ Poultry</td>
+        <td>2024-04-17</td>
+        <td>(987) 654-3210</td>
+        <td>150</td>
+        <td>40</td>
+        <td>1.25</td>
+        <td>Mark Reyes</td>
+        <td>Sickly</td>
+        <td>Pending</td>
+        <td>2024-04-17</td>
+      </tr>
+      <tr>
+        <td>Farms Fresh</td>
+        <td>2024-04-20</td>
+        <td>(555) 123-4567</td>
+        <td>180</td>
+        <td>35</td>
+        <td>1.2</td>
+        <td>Leo Cruz</td>
+        <td>Underweight</td>
+        <td>Paid</td>
+        <td>2024-04-20</td>
+      </tr>
+      <tr>
+        <td>ABC Farms</td>
+        <td>2024-04-12</td>
+        <td>(123) 456-7890</td>
+        <td>250</td>
+        <td>50</td>
+        <td>1.4</td>
+        <td>Leo Cruz</td>
+        <td>Healthy</td>
+        <td>Paid</td>
+        <td>2024-04-12</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    function submitForm() {
+      const supplier = document.getElementById('supplier').value;
+      const date = document.getElementById('date').value;
+      const contact = document.getElementById('contact').value;
+      const numChickens = document.getElementById('numChickens').value;
+      const chickenAge = document.getElementById('chickenAge').value;
+      const weight = document.getElementById('weight').value;
+      const employee = document.getElementById('employee').value;
+      const status = document.getElementById('status').value;
+      const paymentStatus = document.getElementById('paymentStatus').value;
+
+      if (!supplier || !date || !contact || !numChickens || !chickenAge || !weight || !employee || !status || !paymentStatus) {
+        alert('Please fill out all fields.');
+        return;
+      }
+
+      const table = document.getElementById('deliveryBody');
+      const row = table.insertRow();
+      row.innerHTML = `
+        <td>${supplier}</td>
+        <td>${date}</td>
+        <td>${contact}</td>
+        <td>${numChickens}</td>
+        <td>${chickenAge}</td>
+        <td>${weight}</td>
+        <td>${employee}</td>
+        <td>${status}</td>
+        <td>${paymentStatus}</td>
+        <td>${new Date().toLocaleDateString()}</td>
+      `;
+      
+      alert('Delivery recorded successfully!');
+    }
+
+    function filterTable() {
+      const supplierFilter = document.getElementById('filterSupplier').value.toLowerCase();
+      const employeeFilter = document.getElementById('filterEmployee').value.toLowerCase();
+      const dateFilter = document.getElementById('filterDate').value;
+      const paymentStatusFilter = document.getElementById('filterPaymentStatus').value.toLowerCase();
+
+      const rows = document.querySelectorAll('#deliveryBody tr');
+
+      rows.forEach(row => {
+        const supplier = row.cells[0].innerText.toLowerCase();
+        const employee = row.cells[6].innerText.toLowerCase();
+        const date = row.cells[1].innerText;
+        const paymentStatus = row.cells[8].innerText.toLowerCase();
+
+        if (
+          (supplier.includes(supplierFilter) || supplierFilter === '') &&
+          (employee.includes(employeeFilter) || employeeFilter === '') &&
+          (date.includes(dateFilter) || dateFilter === '') &&
+          (paymentStatus.includes(paymentStatusFilter) || paymentStatusFilter === '')
+        ) {
+          row.style.display = '';
+        } else {
+          row.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
+

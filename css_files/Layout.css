@@ -1,0 +1,49 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent scrollbars from the body */
+    font-family: sans-serif; /* Optional: clean default font */
+    background-color: rgba(0, 0, 0, 0.5); /* Optional: Add a slight background color if needed */
+    backdrop-filter: blur(15px);
+}
+
+.parent {
+    display: flex;
+    height: 100vh;
+    position: relative; /* Ensure the child elements can be positioned correctly */
+}
+
+/* Add blur effect to the total background */
+body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('/css_files/images/43941.jpg'); /* Your background image */
+    background-size: cover; /* Ensure it covers the entire screen */
+    filter: blur(10px); /* Adjust the blur level */
+    z-index: -1; /* Ensure it stays in the background */
+}
+
+/* Your div1 and div4 remain the same */
+.div1 {
+    width: 300px;
+    margin: 0;
+}
+
+.div4 {
+    flex: 1;
+    overflow-y: auto;
+    color: #000;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}

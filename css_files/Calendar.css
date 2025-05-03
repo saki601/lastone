@@ -1,0 +1,67 @@
+:root {
+  font-size: 125%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  font: 1em/1.618 Inter, sans-serif;
+  margin: 0;
+  color: #224;
+}
+
+p {
+  margin: 0;
+}
+
+p:not(:last-child) {
+  margin-bottom: 1.5em;
+}
+
+.site-container {
+  display: grid;
+  place-items: center; /* Center the container */
+  width: 100%; /* Adjust to full width */
+  max-width: 1000px; /* Limit the max width */
+  min-height: 100vh;
+  padding: 1.5em;
+}
+
+.card {
+  max-width: 600px; /* Increased width for better content fit */
+  width: 100%;
+  min-height: 300px; /* Increased height to accommodate more content */
+  padding: 20px 30px; /* Reduced padding for better space usage */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 10px 1px rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(15px);
+}
+
+.card-footer {
+  font-size: 0.75em; /* Slightly larger footer for better legibility */
+  color: #446;
+  margin-top: 20px; /* Added margin for spacing */
+}
+
+.date {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 45px;
+  letter-spacing: -0.8px;
+  word-spacing: 1.4px;
+  color: #000000;
+  font-weight: 700;
+  text-decoration: none;
+  font-style: normal;
+  font-variant: normal;
+  text-transform: none;
+}

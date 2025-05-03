@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mylen's Manukan</title>
+
+  <!-- External Styles -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+  <!-- Bootstrap CSS (4.5.2) -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+  <!-- Custom CSS Files -->
+  <link rel="stylesheet" href="css_files/practic.css">
+  <link rel="stylesheet" href="css_files/Global.css">
+  <link rel="stylesheet" href="css_files/s.css">
+  <link rel="stylesheet" href="css_files/receive-deliverydes.css">
+</head>
+
+<body>
+  <div class="parent">
+    <!-- Sidebar Section -->
+    <div class="div1">
+      <div class="wrapper">
+        <div class="sidebar">
+          <div class="profile">
+            <img src="css_files/images/Logo.svg" alt="Logo" />
+            <h3>Mylen's Manukan</h3>
+            <p>Shop</p>
+          </div>
+
+          <ul>
+            <li><a href="main_page.html"><i class="fas fa-home icon"></i><span class="item">Home</span></a></li>
+            <li><a href="alternative.html" ><i class="fas fa-desktop icon"></i><span class="item">Orders</span></a></li>
+            <li><a href="#"><i class="fas fa-user-friends icon"></i><span class="item">Staff</span></a></li>
+            <li><a href="Inventory.html"><i class="fas fa-database icon"></i><span class="item">Inventory</span></a></li>
+            <li><a href="alternative_order receive.html" class="active"><i class="fas fa-chart-line icon"></i><span class="item">Receive Delivery</span></a></li>
+            <li><a href="#"><i class="fas fa-user-shield icon"></i><span class="item">Chicken status</span></a></li>
+          </ul>
+
+          <div class="logout-container">
+            <button class="logout-btn"><span>Log Out</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Orders Table Section -->
+    <div class="div4">
+        <h1 style="color: white; align: left;">Receive Chicken Delivery</h1>
+
+  <div class="form-container">
+    <div class="form-card">
+      <label style="color: white;" for="supplier">Supplier Name:</label>
+      <input  type="text" id="supplier" required>
+
+      <label style="color: white;" for="date">Date Received:</label>
+      <input type="date" id="date" required>
+
+      <label style="color: white;" for="contact">Contact Info:</label>
+      <input type="tel" id="contact" required>
+    </div>
+
+    <div class="form-card">
+      <label style="color: white;" for="numChickens">Number of Chickens:</label>
+      <input type="number" id="numChickens" min="1" required>
+
+      <label style="color: white;" for="chickenAge">Chicken Age (in days):</label>
+      <input type="number" id="chickenAge" min="1" required>
+
+      <label style="color: white;" for="weight">Average Weight (grams):</label>
+      <input type="number" step="0.01" id="weight" required>
+    </div>
+
+    <div class="form-card">
+      <label style="color: white;" for="employee">Received by:</label>
+      <select id="employee" required>
+        <option value="">-- Select Employee --</option>
+        <option value="Anna Santos">Anna Santos</option>
+        <option value="Mark Reyes">Mark Reyes</option>
+        <option value="Leo Cruz">Leo Cruz</option>
+      </select>
+
+      <label style="color: white;" for="status">Batch Status:</label>
+      <input type="text" id="status" placeholder="e.g., Healthy, Quarantine">
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="submitForm()">Receive Delivery</button>
+
+  <!-- Filter section -->
+  <div class="filter-container">
+    <label style="color: white;" for="filterSupplier">Filter by Supplier:</label>
+    <input type="text" id="filterSupplier" oninput="filterTable()">
+
+    <label style="color: white;" for="filterEmployee">Filter by Employee:</label>
+    <select id="filterEmployee" onchange="filterTable()">
+      <option value="">-- All --</option>
+      <option value="Anna Santos">Anna Santos</option>
+      <option value="Mark Reyes">Mark Reyes</option>
+      <option value="Leo Cruz">Leo Cruz</option>
+    </select>
+
+    <label style="color: white;" for="filterMonth">Filter by Month:</label>
+    <input type="month" id="filterMonth" onchange="filterTable()">
+  </div>
+
+  <!-- Table -->
+  <table id="deliveryTable">
+    <thead>
+      <tr>
+        <th>Supplier</th>
+        <th>Date Received</th>
+        <th>Contact</th>
+        <th>Chickens</th>
+        <th>Age (days)</th>
+        <th>Avg Weight (kg)</th>
+        <th>Received By</th>
+        <th>Status</th>
+        <th>System Entry Date</th>
+      </tr>
+    </thead>
+    <tbody id="deliveryBody">
+      <!-- Rows will be added dynamically -->
+    </tbody>
+  </table>
+
+  <script>
+    // Set default date to today
+    document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+    function submitForm() {
+      const supplier = document.getElementById('supplier').value.trim();
+      const date = document.getElementById('date').value;
+      const contact = document.getElementById('contact').value.trim();
+      const numChickens = parseInt(document.getElementById('numChickens').value);
+      const chickenAge = parseInt(document.getElementById('chickenAge').value);
+      const weight = parseFloat(document.getElementById('weight').value);
+      const employee = document.getElementById('employee').value;
+      const status = document.getElementById('status').value.trim();
+
+      if (!supplier || !date || !contact || !numChickens || !chickenAge || !weight || !employee) {
+        alert("Please complete all required fields.");
+        return;
+      }
+
+      if (numChickens <= 0 || chickenAge <= 0) {
+        alert("Chickens and age must be greater than 0.");
+        return;
+      }
+
+      const systemDate = new Date().toISOString().split('T')[0]; // Today's system entry date
+
+      const table = document.getElementById('deliveryBody');
+      const row = table.insertRow();
+      row.insertCell(0).textContent = supplier;
+      row.insertCell(1).textContent = date;
+      row.insertCell(2).textContent = contact;
+      row.insertCell(3).textContent = numChickens;
+      row.insertCell(4).textContent = chickenAge;
+      row.insertCell(5).textContent = (weight / 1000).toFixed(2); // grams to kg
+      row.insertCell(6).textContent = employee;
+      row.insertCell(7).textContent = status || "N/A";
+      row.insertCell(8).textContent = systemDate;
+
+      document.querySelectorAll("input, select").forEach(el => {
+        if (el.type !== "date" && el.type !== "month") el.value = "";
+      });
+
+      document.getElementById('date').value = new Date().toISOString().split('T')[0];
+
+      filterTable(); // Refresh filters
+    }
+
+    function filterTable() {
+      const supplierFilter = document.getElementById('filterSupplier').value.toLowerCase();
+      const employeeFilter = document.getElementById('filterEmployee').value.toLowerCase();
+      const monthFilter = document.getElementById('filterMonth').value; // format YYYY-MM
+
+      const rows = document.querySelectorAll('#deliveryBody tr');
+      rows.forEach(row => {
+        const supplier = row.cells[0].textContent.toLowerCase();
+        const date = row.cells[1].textContent; // format YYYY-MM-DD
+        const employee = row.cells[6].textContent.toLowerCase();
+
+        const rowMonth = date.slice(0, 7); // extract YYYY-MM
+
+        const matchesSupplier = supplier.includes(supplierFilter);
+        const matchesEmployee = !employeeFilter || employee === employeeFilter;
+        const matchesMonth = !monthFilter || rowMonth === monthFilter;
+
+        row.style.display = (matchesSupplier && matchesEmployee && matchesMonth) ? '' : 'none';
+      });
+    }
+  </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,134 @@
+/* General body styling */
+body {
+  margin: 0;
+  padding: 0;
+ /* background-color: hsl(0, 0%, 96%); /* Set a background color */
+}
+
+.table-wrapper {
+  width: 100%;              /* Set the width of the table wrapper */
+  overflow-x: hidden;        /* Use auto to allow horizontal scrolling if needed */
+  margin-top: 20px;        /* Add top margin */
+  margin-left: auto;       /* Center horizontally by setting left margin to auto */
+  margin-right: auto;      /* Center horizontally by setting right margin to auto */
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto; /* Centers block elements like tables */
+  padding: 3rem 2rem;
+
+  background-color: rgba(172, 168, 168, 0.1);
+  backdrop-filter: blur(15px);
+
+  border: 2px solid rgba(240, 240, 240, 0.2);
+  border-radius: 10px;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+
+  position: relative; 
+  transform: none;
+  top: auto;
+  left: auto;
+
+  /* Table-specific styles (ignored if not applied to a table) */
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+
+/* Table header and cells styling */
+th, td {
+  font-size: 14px; /* Consistent font size */
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  white-space: normal; /* Allow line wrap*/
+  word-break: break-word; /* Break long words*/
+  color: #ffffff;
+}
+
+/* Table header specific styling */
+th {
+  background-color: rgba(0, 0, 0, 0.1); /* Dark background for header */
+  font-weight: bold; /* Bold text for header */
+  color: #ffffff; /* White text color */
+}
+
+/* Styling for even rows */
+tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.1); /* Lighter background for even rows */
+}
+
+/* Responsive styling for smaller screens */
+@media (max-width: 768px) {
+  th, td {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
+/* Input and select elements inside the table */
+input, select {
+  font-size: 8px; /* Match table font size */
+  padding: 6px; /* Consistent padding */
+  border: 1px solid #ccc; /* Border for inputs */
+  border-radius: 4px; /* Rounded corners for inputs */
+  background-color: #fff; /* White background for inputs */
+  color: #333; /* Dark text color */
+}
+
+/* Optional checkbox spacing fix */
+.custom-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Styling for buttons (Edit, Delete) */
+button {
+  font-size: 14px; /* Consistent button text size */
+  padding: 6px 12px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #fff;
+}
+
+button.btn-info {
+  background-color: #17a2b8; /* Info button */
+}
+
+button.btn-danger {
+  background-color: #dc3545; /* Danger button */
+}
+
+/* Hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Prevent text from wrapping inside table cells */
+table td, table th {
+  white-space: normal; /* Allow text to wrap in cells */
+  padding: 10px; /* Optional: Adds padding to make the content more readable */
+}
+
+/* Adjust column widths */
+table td:nth-child(2), /* Example for "Name" column */
+table td:nth-child(3), /* Example for "Messenger Link" column */
+table td:nth-child(4), /* Example for "Address" column */
+table td:nth-child(5), /* Example for "Order" column */
+table td:nth-child(6) { /* Example for "Order Details" column */
+  max-width: 300px; /* Increase max-width for these columns */
+  overflow: hidden;
+  text-overflow: ellipsis; /* Adds '...' if content overflows */
+}
+
+/* Optional: Add a max-width to each header for better alignment */
+table th {
+  max-width: 200px;
+  word-wrap: break-word; /* Ensure header text wraps if too long */
+}

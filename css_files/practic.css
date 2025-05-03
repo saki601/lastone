@@ -1,0 +1,17 @@
+  /* Parent and div alignment */
+  .parent {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 8px;
+  }
+  
+  .div1 {
+    grid-row: span 5 / span 5;
+  }
+  
+  .div4 {
+
+    padding: 20px;
+  }
+  
