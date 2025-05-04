@@ -132,3 +132,6 @@ table th {
   max-width: 200px;
   word-wrap: break-word; /* Ensure header text wraps if too long */
 }
+table tbody.apple {
+  color: #000000 !important; /* Replace with any color you prefer */
+}
