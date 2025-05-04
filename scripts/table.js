@@ -188,6 +188,8 @@ document.addEventListener('DOMContentLoaded', function() {
                       <button class="btn btn-info">Edit</button>
                       <button class="btn btn-danger">Delete</button>
                   </td>
+                  <td><button class="btn btn-sm btn-primary deliverBtn">Delivered</button></td>
+
               `;
 
               // Append the row to the table body
@@ -220,3 +222,31 @@ var targetDeleteAction = null;
     // Your deletion logic here
     console.log("Employee deleted.");
   }
+
+  function getCurrentTimestamp() {
+    const now = new Date();
+    return now.toLocaleString();
+  }
+
+  $(document).ready(function () {
+    $('.deliverBtn').click(function () {
+      const row = $(this).closest('tr');
+      const cells = row.find('td').slice(1, 8,-2); // exclude checkbox and last 2 columns
+
+      const timestamp = `<td>${getCurrentTimestamp()}</td>`;
+      const deliveredRow = '<tr>' + cells.map(function () {
+        return `<td>${$(this).html()}</td>`;
+      }).get().join('') + timestamp + '</tr>';
+
+      $('#deliveredTable tbody').append(deliveredRow);
+      row.remove(); // remove from main table
+    });
+
+    // Search/Filter functionality
+    $('#searchDelivered').on('keyup', function () {
+      const value = $(this).val().toLowerCase();
+      $('#deliveredTable tbody tr').filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
+      });
+    });
+  });
