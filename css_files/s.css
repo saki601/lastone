@@ -8,7 +8,7 @@
 }
 
 .wrapper {
-
+    border-radius: 20px;
     overflow: hidden;
 }
 
@@ -17,17 +17,20 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 300px;
     height: 100vh;
     padding: 20px 0;
-    background-color: rgba(171, 166, 166, 0.4);
+    background-color: rgba(30, 30, 30, 0.4);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
-    margin: 0; /* Remove any margin */
-
-
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
+
 /* Profile Section */
 .profile {
     display: flex;
@@ -107,21 +110,3 @@
 .logout-container button:hover {
     background-color: #c0392b;
 }
-
-
-.parent {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    gap: 8px;
-}
-    
-.div1 {
-    grid-row: span 5 / span 5;
-}
-
-.div4 {
-    grid-column: span 4 / span 4;
-    grid-row: span 5 / span 5;
-}
-        
