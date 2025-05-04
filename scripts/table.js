@@ -63,6 +63,7 @@ $(document).ready(function() {
     const messenger = $('#messengerInput').val().trim();
     const address = $('input[name="address"]').val().trim();
     const orderType = $('#orderSelect').val();
+    const cutType = $('select[name="cutType"]').val();
     const status = $('select[name="status"]').val();
     const method = $('#methodSelect').val();
     const reference = $('#referenceInput').val();
@@ -104,6 +105,7 @@ $(document).ready(function() {
         <td>${address}</td>
         <td>${orderType}</td>
         <td>${orderDetails}</td>
+        <td>${cutType}</td>
         <td>${status}</td>
         <td>${method}</td>
         <td>${paymentRef}</td>
@@ -131,15 +133,17 @@ $(document).ready(function() {
     const messenger = row.find('td:nth-child(3)').text();
     const address = row.find('td:nth-child(4)').text();
     const orderDetails = row.find('td:nth-child(6)').text();
-    const status = row.find('td:nth-child(7)').text();
-    const method = row.find('td:nth-child(8)').text();
-    const paymentRef = row.find('td:nth-child(9)').text();
-    const phone = row.find('td:nth-child(10)').text();
+    const cutType = row.find('td:nth-child(7)').text();
+    const status = row.find('td:nth-child(8)').text();
+    const method = row.find('td:nth-child(9)').text();
+    const paymentRef = row.find('td:nth-child(10)').text();
+    const phone = row.find('td:nth-child(11)').text();
 
     // Prepopulate the form with the row data
     $('input[name="name"]').val(name);
     $('#messengerInput').val(messenger.replace(/<\/?a[^>]+>/gi, ''));
     $('input[name="address"]').val(address);
+    $('select[name="cutType"]').val(cutType);
     $('select[name="status"]').val(status);
     $('#methodSelect').val(method);
     $('#phoneInput').val(phone);
@@ -179,6 +183,7 @@ document.addEventListener('DOMContentLoaded', function() {
                   <td>${order.address}</td>
                   <td>${order.order}</td>
                   <td>${order.orderDetails}</td>
+                  <td>${order.cutType}</td>
                   <td>${order.status}</td>
                   <td>${order.method}</td>
                   <td>${order.reference}</td>
@@ -231,7 +236,9 @@ var targetDeleteAction = null;
   $(document).ready(function () {
     $('.deliverBtn').click(function () {
       const row = $(this).closest('tr');
-      const cells = row.find('td').slice(1, 8,-2); // exclude checkbox and last 2 columns
+      const cells = row.find('td').filter((index) => {
+        return index !== 0 && index !== 7 && index < row.find('td').length - 2;
+      });
 
       const timestamp = `<td>${getCurrentTimestamp()}</td>`;
       const deliveredRow = '<tr>' + cells.map(function () {
